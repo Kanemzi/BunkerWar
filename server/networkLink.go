@@ -17,3 +17,19 @@ type NetworkLink struct {
 	OwnerStatus, TargetStatus InterfaceStatus
 	Speed                     float64
 }
+
+// LinkExists returns true if a link between two bases has already been created
+// if the link exists, it's also returned
+func LinkExists(bases []*PlayerBase, a *PlayerBase, b *PlayerBase) (bool, NetworkLink) {
+	var nillink NetworkLink
+	for _, b := range bases {
+		for _, l := range b.NetworkLinks {
+			owa := l.OwnerBase == a && l.TargetBase == b
+			owb := l.OwnerBase == b && l.TargetBase == a
+			if owa || owb {
+				return true, l
+			}
+		}
+	}
+	return false, nillink
+}

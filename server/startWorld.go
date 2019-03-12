@@ -22,15 +22,21 @@ func main() {
 	}
 
 	worldRadius := float64(numPlayers * 200)
-	/*players := make([]Player, 0, numPlayers)
-	bases := make([]PlayerBase, 0, numPlayers)*/
+	players := make([]*Player, numPlayers, numPlayers)
+	bases := make([]*PlayerBase, numPlayers)
 	f.Println("World size: ", worldRadius)
 	locs := GeneratePlayerLocations(numPlayers, worldRadius)
 
-	base := NewPlayerBase(locs[0], "admin", "admin")
-	player := NewPlayer("roger", locs[0], base)
-	err = base.AssignPlayer(player)
-	f.Println(err)
-	err = base.AssignPlayer(player)
-	f.Println(err)
+	for i, v := range locs {
+		bases[i] = NewPlayerBase(v, "admin"+strconv.Itoa(i), "admin"+strconv.Itoa(i))
+		players[i] = NewPlayer("player"+strconv.Itoa(i), v, bases[i])
+		err = bases[i].AssignPlayer(players[i])
+	}
+
+	f.Println(bases)
+	f.Println(players)
+
+	f.Println(*bases[1])
+	f.Println(*players[1])
+
 }
