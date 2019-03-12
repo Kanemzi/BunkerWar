@@ -6,6 +6,8 @@ import (
 	"bufio"*/
 	"os"
 	"strconv"
+
+	"github.com/SimonROZEC/bunker/server/world"
 )
 
 func main() {
@@ -22,14 +24,14 @@ func main() {
 	}
 
 	worldRadius := float64(numPlayers * 200)
-	players := make([]*Player, numPlayers, numPlayers)
-	bases := make([]*PlayerBase, numPlayers)
+	players := make([]*world.Player, numPlayers, numPlayers)
+	bases := make([]*world.PlayerBase, numPlayers)
 	f.Println("World size: ", worldRadius)
-	locs := GeneratePlayerLocations(numPlayers, worldRadius)
+	locs := world.GeneratePlayerLocations(numPlayers, worldRadius)
 
 	for i, v := range locs {
-		bases[i] = NewPlayerBase(v, "admin"+strconv.Itoa(i), "admin"+strconv.Itoa(i))
-		players[i] = NewPlayer("player"+strconv.Itoa(i), v, bases[i])
+		bases[i] = world.NewPlayerBase(v, "admin"+strconv.Itoa(i), "admin"+strconv.Itoa(i))
+		players[i] = world.NewPlayer("player"+strconv.Itoa(i), v, bases[i])
 		err = bases[i].AssignPlayer(players[i])
 	}
 

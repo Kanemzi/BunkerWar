@@ -1,9 +1,11 @@
-package main
+package world
+
+import "github.com/SimonROZEC/bunker/server/util"
 
 // Player is a player in the game
 type Player struct {
 	// Physical coordinates of the player
-	Loc Location
+	Loc util.Location
 
 	// The base where the player is located
 	Base *PlayerBase
@@ -13,7 +15,7 @@ type Player struct {
 }
 
 // NewPlayer creates and returns a pointer on a new Player
-func NewPlayer(name string, loc Location, base *PlayerBase) *Player {
+func NewPlayer(name string, loc util.Location, base *PlayerBase) *Player {
 	player := new(Player)
 	player.Name = name
 	player.Loc = loc

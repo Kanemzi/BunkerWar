@@ -1,4 +1,4 @@
-package main
+package util
 
 // Location represents a position on the world map
 type Location struct {
